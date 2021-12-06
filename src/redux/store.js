@@ -1,5 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import {
+  persistStore,
+  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -7,10 +9,21 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import phoneBookReducer from './phoneBook/phoneBook-reducer';
+import storage from 'redux-persist/lib/storage';
+import contactsReducer from './phoneBook/contacts-slice';
+import authReducer from './authorizations/auth-slice';
 
-const store = configureStore({
-  reducer: { phoneBook: phoneBookReducer },
+const authPersistConfig = {
+  key: 'userAuth',
+  storage,
+  whitelist: ['token'],
+};
+
+export const store = configureStore({
+  reducer: {
+    userAuth: persistReducer(authPersistConfig, authReducer),
+    userContacts: contactsReducer,
+  },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
@@ -20,4 +33,4 @@ const store = configureStore({
   devTools: process.env.NODE_ENV === 'development',
 });
 
-export default store;
+export const persistor = persistStore(store);

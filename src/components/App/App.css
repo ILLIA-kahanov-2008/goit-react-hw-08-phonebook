@@ -1,9 +1,9 @@
 .App {
-  width: 80%;
-  max-width: 500px;
+  /* width: 100%; */
+  max-width: 800px;
   margin: 10px auto 0;
   padding: 15px;
-  border: 2px solid black;
+  /* border: 2px solid black; */
 }
 
 .button {

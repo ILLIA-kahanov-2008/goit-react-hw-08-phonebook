@@ -1,8 +1,8 @@
-import { removeContact } from '../../redux/phoneBook/phoneBook-operations';
+import { removeContact } from '../../redux/phoneBook/contacts-thunks';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styled from 'styled-components';
-import { getFilteredContacts } from '../../redux/phoneBook/selectors';
+import { getFilteredContacts } from '../../redux/phoneBook/contacts-selectors';
 
 const Styles = styled.div`
   .selector1 {
@@ -29,7 +29,9 @@ function ContactList() {
 
   const dispatch = useDispatch();
 
-  const handleClick = e => dispatch(removeContact(e.target.id));
+  const handleClick = e => {    
+    dispatch(removeContact(e.target.id))
+  };
   return (
     <Styles>
       <table className="selector1">
@@ -58,7 +60,10 @@ function ContactList() {
                     onClick={handleClick}
                     id={id}
                   >
-                    Delete contact
+                  
+                    Delete
+
+
                   </button>
                 </td>
               </tr>
